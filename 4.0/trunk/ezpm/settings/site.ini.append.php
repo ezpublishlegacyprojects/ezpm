@@ -1,0 +1,2 @@
+[RegionalSettings]
+TranslationExtensions[]=ezpm

@@ -1,0 +1,13 @@
+Changelog:
+=======================================================
+
+0.9
+- version for eZ Publish 4
+- many design and security fixes, best for ezwebin and ezflow
+
+0.5
+- version for eZ Publish 3.6+ with basic integration with ezwebin package
+- minor fixes
+
+0.1 
+- initial version directly from the archive
