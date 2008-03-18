@@ -54,7 +54,7 @@ class eZPmBlackList extends eZPersistentObject
 
     static function isBlackListed( $checkUserID, $asObject = false )
     {
-        $userID =& eZUser::currentUserID();
+        $userID = eZUser::currentUserID();
         $conds = array( 'blocked_user_id' => $userID,
                         'user_id' => $checkUserID  );
         $rows = eZPersistentObject::fetchObjectList( eZPmBlackList::definition(),
@@ -101,7 +101,7 @@ class eZPmBlackList extends eZPersistentObject
 
     static function addToBlackList( $blockUserID )
     {
-        $userID =& eZUser::currentUserID();
+        $userID = eZUser::currentUserID();
         $blockade = new eZPmBlackList( array( 'blocked_user_id' => $blockUserID,
                                               'user_id' => $userID  ) );
         $blockade->store();

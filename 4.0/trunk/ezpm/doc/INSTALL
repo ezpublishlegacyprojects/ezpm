@@ -18,3 +18,8 @@ Additional steps to integrate with forums in ezwebin/ezflow packages:
 
 8. Enjoy Private Messaging module!
 
+
+Other settings:
+===================================================
+
+Version 0.9.1 has introduced ezpm.ini.php file, where email notification feature can be enabled.

@@ -11,8 +11,8 @@ include_once( 'extension/ezpm/modules/pm/classes/ezcontact.php' );
 //include_once( 'kernel/classes/datatypes/ezuser/ezuser.php' );
 include_once( 'kernel/common/template.php' );
 
-$http =& eZHTTPTool::instance();
-$Module =& $Params["Module"];
+$http = eZHTTPTool::instance();
+$Module = $Params["Module"];
 
 
 if ( $Module->isCurrentAction( 'StoreMessage' ) )
@@ -20,7 +20,7 @@ if ( $Module->isCurrentAction( 'StoreMessage' ) )
     // If message is already in drafts, we just update it with new data ...
     if ( $http->hasPostVariable( 'message_id' ) && $http->postVariable( 'message_id' ) > 0 )
     {
-        $message =& eZPm::fetch( $http->postVariable( 'message_id' ), true );
+        $message = eZPm::fetch( $http->postVariable( 'message_id' ), true );
         if ( is_object( $message ) )
         {
             $message->Subject = $http->postVariable( 'subject' );
@@ -42,14 +42,66 @@ else if ( $Module->isCurrentAction( 'SendMessage' ) )
     // if message is send from drafts, message have to be removed from drafts
     if ( $http->hasPostVariable( 'message_id' ) && $http->postVariable( 'message_id' ) > 0 )
     {
-        $message =& eZPm::fetch( $http->postVariable( 'message_id' ), true );
+        $message = eZPm::fetch( $http->postVariable( 'message_id' ), true );
         if ( is_object( $message ) )
         {
             $message->remove();
+            unset( $message );
         }
     }
     // now we send message
-    eZPm::sendNewMessage( eZUser::currentUserID(), $http->postVariable( 'recipient' ), $http->postVariable( 'subject' ), $http->postVariable( 'text' ) );
+    $message = eZPm::sendNewMessage( eZUser::currentUserID(), $http->postVariable( 'recipient' ), $http->postVariable( 'subject' ), $http->postVariable( 'text' ) );
+
+
+	// email notification about new message if enabled
+	$eZPmINI = eZINI::instance( 'ezpm.ini' );
+	if (  $eZPmINI->variable( 'GeneralSettings', 'EmailNotification' ) == 'enabled' )
+	{
+		// get receiver data
+		$userObject = eZContentObject::fetch( $http->postVariable( 'recipient' ) );
+		if ( !is_object( $userObject ) )
+		{
+			$Module->redirectTo( '/pm/list_sent' );
+		}
+		$userDataMap = $userObject->DataMap();
+		
+		$firstName = $userDataMap['first_name']->Content();
+		$ezuser = $userDataMap['user_account']->Content();
+		
+	     $receiver   = $ezuser->attribute( 'email' );
+	    //$subject     = $http->postVariable( 'subject' );
+	    //$messageText = $http->postVariable( 'text' );
+	    
+	    $hostname = eZSys::hostname();
+	
+	    $tpl = templateInit();
+	    $tpl->setVariable( 'recipient', $receiver );
+	    //$tpl->setVariable( 'subject', $subject );
+	    //$tpl->setVariable( 'text', $messageText );
+	    $tpl->setVariable( 'hostname', $hostname );
+	    $tpl->setVariable( 'first_name', $firstName );
+	    $tpl->setVariable( 'messageID', $message->attribute( 'id' ) );
+	
+	    $ini = eZINI::instance();
+	    $emailSender = $ini->variable( 'MailSettings', 'EmailSender' );
+	    if ( !$emailSender )
+	    {
+	        $emailSender = $ini->variable( 'MailSettings', 'AdminEmail' );
+		}
+	
+	    $templateResult = $tpl->fetch( 'design:pm/notification_email.tpl' );
+	
+	    $subject = $tpl->variable( 'subject' );
+	
+	    $mail = new eZMail();
+	    $mail->setSender( $emailSender );
+	    $mail->setReceiver( $receiver );
+	    $mail->setSubject( $subject );
+	    $mail->setBody( $templateResult );
+	
+	    $mailResult = eZMailTransport::send( $mail );
+		
+	}
 
     $Module->redirectTo( '/pm/list_sent' );
 }
@@ -78,7 +130,7 @@ else if ( $Module->isCurrentAction( 'RemoveMessage' ) )
     $deleteIDArray = $http->postVariable( 'DeleteIDArray' );
     foreach ($deleteIDArray as $messageID)
     {
-        $message =& eZPm::fetch( $messageID, true );
+        $message = eZPm::fetch( $messageID, true );
         $message->remove();
     }
     
@@ -104,7 +156,7 @@ else if ( $Module->isCurrentAction( 'RemoveFromBlacklist' ) )
     $deleteIDArray = $http->postVariable( 'DeleteIDArray' );
     foreach ( $deleteIDArray as $blockedUserID )
     {
-        $blockade =& eZPmBlackList::fetch( $blockedUserID, true );
+        $blockade = eZPmBlackList::fetch( $blockedUserID, true );
         if ( is_object( $blockade ) )
         {
             $blockade->remove();
@@ -134,7 +186,7 @@ else if ( $Module->isCurrentAction( 'RemoveFromContactList' ) )
     $deleteIDArray = $http->postVariable( 'DeleteIDArray' );
     foreach ( $deleteIDArray as $contactUserID )
     {
-        $contact =& eZContact::fetch( $contactUserID, true );
+        $contact = eZContact::fetch( $contactUserID, true );
         if ( is_object( $contact ) )
         {
             $contact->remove();

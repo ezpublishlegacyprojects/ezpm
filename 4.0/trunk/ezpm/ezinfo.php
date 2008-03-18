@@ -1,7 +1,7 @@
 <?php
 // SOFTWARE NAME: eZ Private Messaging extension
-// SOFTWARE RELEASE: 0.9
-// COPYRIGHT NOTICE: Copyright (C) 2007-2008 Bartek Modzelewski
+// SOFTWARE RELEASE: 0.9.1
+// COPYRIGHT NOTICE: Copyright (C) 2006-2008 Bartek Modzelewski
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
 //   This program is free software; you can redistribute it and/or
@@ -27,7 +27,7 @@ class ezpmInfo
     function info()
     {
         return array( 'Name' => "eZ Private Messaging",
-                      'Version' => "0.9",
+                      'Version' => "0.9.1",
                       'Copyright' => "Copyright (C) 2006-2008 Bartek Modzelewski",
                       'Author' => "Bartek Modzelewski",
                       'License' => "GNU General Public License v2.0"

@@ -51,7 +51,7 @@
 <div class="context-toolbar">
 {include name=navigator
          uri='design:navigator/google.tpl'
-         page_uri='/pm/list_drafts.tpl'
+         page_uri='/pm/list_drafts'
          item_count=$list_count
          view_parameters=$view_parameters
          item_limit=$limit}
