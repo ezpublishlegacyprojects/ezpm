@@ -20,33 +20,28 @@
                                       'sort', $sorting,
                                       'type', $type ) ) }
 
-{*$list|attribute(show)*}
 
 <form name="messages" action={"/pm/action/"|ezurl} method="post" >
 <table class="list" cellspacing="0">
     <tr>
         <th class="tight"><img src={"toggle-button-16x16.gif"|ezimage} alt="{'Toggle selection'|i18n( 'design/admin/role/list')}" onclick="ezjs_toggleCheckboxes( document.messages, 'DeleteIDArray[]' ); return false;"/></th>
-        <th>
-            {if eq( $sorting, 'sender_asc' )}<a href={'/user/preferences/set/messages_list_sorting/sender_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/sender_asc/'|ezurl}>{/if}{'To'|i18n( 'design/standard/ezpm' )}</a>
-        </th>
+        <th>{if eq( $sorting, 'sender_asc' )}<a href={'/user/preferences/set/messages_list_sorting/sender_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/sender_asc/'|ezurl}>{/if}{'To'|i18n( 'design/standard/ezpm' )}</a></th>
         <th>{if eq( $sorting, 'subject_asc' )}<a href={'/user/preferences/set/messages_list_sorting/subject_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/subject_asc/'|ezurl}>{/if}{'Subject'|i18n( 'design/standard/ezpm' )}</a></th>
-        <th class="tight">{if eq( $sorting, 'date_asc' )}<a href={'/user/preferences/set/messages_list_sorting/date_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/date_asc/'|ezurl}>{/if}{'Date sent'|i18n( 'design/standard/ezpm' )}</a></th>
-        <th class="tight">{if eq( $sorting, 'date_asc' )}<a href={'/user/preferences/set/messages_list_sorting/date_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/date_asc/'|ezurl}>{/if}{'Date read'|i18n( 'design/standard/ezpm' )}</a></th>
-        <th class="tight">&nbsp;</th>
+        <th>{if eq( $sorting, 'date_asc' )}<a href={'/user/preferences/set/messages_list_sorting/date_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/date_asc/'|ezurl}>{/if}{'Date sent'|i18n( 'design/standard/ezpm' )}</a></th>
+        <th>{if eq( $sorting, 'date_asc' )}<a href={'/user/preferences/set/messages_list_sorting/date_desc/'|ezurl}>{else}<a href={'/user/preferences/set/messages_list_sorting/date_asc/'|ezurl}>{/if}{'Date read'|i18n( 'design/standard/ezpm' )}</a></th>
+        {*<th class="tight">&nbsp;</th>*}
     </tr>
 
 {section var=Message loop=$list sequence=array( bglight, bgdark )}
     <tr class="{$Message.sequence}">
         <td class="tight"><input type="checkbox" name="DeleteIDArray[]" value="{$Message.item.id}" title="{'Select message for removal.'|i18n( 'design/standard/ezpm' )}" /></td>
-        <td>
+        <td style="cursor:pointer;" onclick="document.location.href='{concat( '/pm/message/', $Message.item.id)|ezurl('no')}'" title="{'Click here to read this message'|i18n( 'design/standard/ezpm' )}">
             {$Message.recipient_name}
         </td>
-        <td>{$Message.subject|shorten( 30, '...' )}</td>
-        <td>{$Message.date_sent|l10n( 'shortdatetime' )}</td>
-        <td>{if ne( $Message.date_read, 0 ) }{$Message.date_read|l10n( 'shortdatetime' )}{else}<b>{'Sent'|i18n( 'design/standard/ezpm' )}</b>{/if}</td>
-        <td>
-            <a href={concat( '/pm/message/', $Message.item.id)|ezurl}>read</a>
-        </td>
+        <td style="cursor:pointer;" onclick="document.location.href='{concat( '/pm/message/', $Message.item.id)|ezurl('no')}'" title="{'Click here to read this message'|i18n( 'design/standard/ezpm' )}">{$Message.subject|shorten( 40, '...' )}</td>
+        <td style="cursor:pointer;" onclick="document.location.href='{concat( '/pm/message/', $Message.item.id)|ezurl('no')}'" title="{'Click here to read this message'|i18n( 'design/standard/ezpm' )}">{$Message.date_sent|l10n( 'shortdatetime' )}</td>
+        <td style="cursor:pointer;" onclick="document.location.href='{concat( '/pm/message/', $Message.item.id)|ezurl('no')}'" title="{'Click here to read this message'|i18n( 'design/standard/ezpm' )}">{if ne( $Message.date_read, 0 ) }{$Message.date_read|l10n( 'shortdatetime' )}{else}<b>{'Sent'|i18n( 'design/standard/ezpm' )}</b>{/if}</td>
+        {*<td><a href={concat( '/pm/message/', $Message.item.id)|ezurl}>read</a></td>*}
     </tr>
 {/section}
 </table>

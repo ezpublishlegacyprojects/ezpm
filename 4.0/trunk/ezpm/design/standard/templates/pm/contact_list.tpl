@@ -16,7 +16,6 @@
         <th class="tight"><img src={"toggle-button-16x16.gif"|ezimage} alt="{'Toggle selection'|i18n( 'design/admin/role/list')}" onclick="ezjs_toggleCheckboxes( document.contacts, 'DeleteIDArray[]' ); return false;"/></th>
         <th>{'User name'|i18n( 'design/standard/ezpm' )}</th>
         <th class="tight"></th>
-        <th class="tight"></th>
     </tr>
 
 {section var=user loop=$contacts sequence=array( bglight, bgdark )}
@@ -24,26 +23,7 @@
         <td class="tight"><input type="checkbox" name="DeleteIDArray[]" value="{$user.contact_user_id}" title="" /></td>
         <td>{$user.contact_user_name|wash}</td>
         <td><a href={concat( "/pm/create/", $user.contact_user_id )|ezurl}>{'Send message'|i18n( 'design/standard/ezpm' )}</a></td>
-        <td>
-        
-{* Fetching sender's profile url *}
-  {def $contact_object=fetch( 'content' ,'object', hash( 'object_id', $user.contact_user_id  ) )  }
-    {if eq( $contact_object.data_map.user_type.data_text, 0 )}
-      {def $folder_id=ezini( 'General', 'SellersFoldersNodeId' , 'personal_folder.ini' ) }
-    {else}
-      {def $folder_id=ezini( 'General', 'BuyersFoldersNodeId' , 'personal_folder.ini' ) }
-    {/if}
-    {def $profiles=fetch( 'content', 'list', hash( 'parent_node_id', $folder_id,
-                                                   'attribute_filter', array(
-                                                                          array( 'owner',
-                                                                           '=',
-                                                                          $user.contact_user_id  ) ) ) )}
 
-    {if $profiles.0}
-            <a href={$profiles.0.url_alias|ezurl}>See profile</a>
-    {/if}
-    {undef $profiles}
-        </td>
     </tr>
 {/section}
 </table>

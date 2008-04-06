@@ -1,7 +1,7 @@
 <?php
 
 include_once( 'kernel/common/template.php' );
-include_once( 'extension/ezpm/modules/pm/classes/ezpm.php' );
+include_once( 'extension/ezpm/classes/ezpm.php' );
 
 $Module =& $Params['Module'];
 
@@ -51,8 +51,6 @@ $Result['path'] = array( array( 'url' => false,
                                 'text' => ezi18n( 'design/standard/ezpm', 'Private messaging' ) ),
                          array( 'url' => false,
                                 'text' => ezi18n( 'design/standard/ezpm', 'Reply' ) ) );
-
-
 
 
 ?>

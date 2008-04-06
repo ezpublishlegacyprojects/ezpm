@@ -1,8 +1,8 @@
 <?php
 
 include_once( 'kernel/common/template.php' );
-include_once( 'extension/ezpm/modules/pm/classes/ezpm.php' );
-include_once( 'extension/ezpm/modules/pm/classes/ezcontact.php' );
+include_once( 'extension/ezpm/classes/ezpm.php' );
+include_once( 'extension/ezpm/classes/ezcontact.php' );
 
 $Module =& $Params['Module'];
 
@@ -28,7 +28,7 @@ eZPm::markMessageAsRead( $messageID );
 
 $is_contact = eZContact::isOnContactList( $message->SenderUserID );
 
-$tpl =& templateInit();
+$tpl = templateInit();
 $tpl->setVariable( 'user_id', $currentUserID );
 $tpl->setVariable( 'messageID', $messageID );
 $tpl->setVariable( 'is_contact', $is_contact );

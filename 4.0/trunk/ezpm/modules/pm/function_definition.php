@@ -9,8 +9,7 @@
 $FunctionList = array();
 
 $FunctionList['view_message'] = array( 'name' => 'view_message',
-                                 'call_method' => array( 'include_file' => 'extension/ezpm/modules/pm/classes/ezpm.php',
-                                                         'class' => 'eZPm',
+                                 'call_method' => array( 'class' => 'eZPm',
                                                          'method' => 'fetchMessage' ),
                                  'parameter_type' => 'standard',
                                  'parameters' => array ( array ( 'name' => 'id',
@@ -18,8 +17,7 @@ $FunctionList['view_message'] = array( 'name' => 'view_message',
                                                                  'required' => true ) ) );
 
 $FunctionList['list'] = array( 'name' => 'list',
-                                 'call_method' => array( 'include_file' => 'extension/ezpm/modules/pm/classes/ezpm.php',
-                                                         'class' => 'eZPm',
+                                 'call_method' => array( 'class' => 'eZPm',
                                                          'method' => 'fetchMessageList' ),
                                  'parameter_type' => 'standard',
                                  'parameters' => array ( array ( 'name' => 'offset',
@@ -36,7 +34,8 @@ $FunctionList['list'] = array( 'name' => 'list',
                                                                  'required' => true ) ) );
 
 $FunctionList['messages_stats'] = array( 'name' => 'messages_stats',
-                                 'call_method' => array( 'include_file' => 'extension/ezpm/modules/pm/classes/ezpm.php',
+								 'operation_types' => array( 'read' ),
+                                 'call_method' => array( 
                                                          'class' => 'eZPm',
                                                          'method' => 'messagesStats' ),
                                  'parameter_type' => 'standard',
@@ -44,8 +43,7 @@ $FunctionList['messages_stats'] = array( 'name' => 'messages_stats',
 
 
 $FunctionList['check_contact'] = array( 'name' => 'check_contact',
-                                 'call_method' => array( 'include_file' => 'extension/ezpm/modules/pm/classes/ezcontact.php',
-                                                         'class' => 'eZContact',
+                                 'call_method' => array( 'class' => 'eZContact',
                                                          'method' => 'checkIsOnContactList' ),
                                  'parameter_type' => 'standard',
                                  'parameters' => array ( array ( 'name' => 'user_id',

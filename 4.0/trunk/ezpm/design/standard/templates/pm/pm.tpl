@@ -29,7 +29,7 @@
 {/if}
 
 <div class="block">
-    <label>{'Date sent'|i18n( 'design/standard/ezpm' )}</label>
+    <label>{'Date received'|i18n( 'design/standard/ezpm' )}</label>
     {$message.date_sent|datetime( 'custom', '%h:%i %a %d %M %Y' )}
 </div>
 
@@ -56,7 +56,7 @@
     <input class="button" type="submit" name="AddToContactsButton" value="{'Add to contacts'|i18n( 'design/standard/ezpm' )}" title="" />
   {/if}
 
-    <input class="button" type="submit" name="AddToBlacklistButton" value="{'Add to black list'|i18n( 'design/standard/ezpm' )}" title="" />
+    <input class="button" type="submit" name="AddToBlacklistButton" value="{'Add to blacklist'|i18n( 'design/standard/ezpm' )}" title="" />
 
   {if $access_write_message}
     <input class="button" type="submit" name="ReplyButton" value="{'Reply'|i18n( 'design/standard/ezpm' )}" title="" />

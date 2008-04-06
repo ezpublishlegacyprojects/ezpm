@@ -31,9 +31,6 @@
                                           'sort', $sorting,
                                           'type', $type ) ) }
     
-    
-    {*$list|attribute(show,3)*}
-    
     <form name="messages" action={"/pm/action/"|ezurl} method="post" >
     <table class="list" cellspacing="0">
         <tr>
@@ -44,12 +41,12 @@
             <th class="tight">&nbsp;</th>
         </tr>
     
-    
+    {def $new=''}
     {section var=Message loop=$list sequence=array( bglight, bgdark )}
         {if eq($Message.date_read, 0)}
-          {def $new='font-weight: bold;'}
+          {set $new='font-weight: bold;'}
         {else}
-          {def $new=''}
+          {set $new=''}
         {/if}
         <tr class="{$Message.sequence}">
             <td class="tight"><input type="checkbox" name="DeleteIDArray[]" value="{$Message.item.id}" title="{'Select message for removal.'|i18n( 'design/standard/ezpm' )}" /></td>

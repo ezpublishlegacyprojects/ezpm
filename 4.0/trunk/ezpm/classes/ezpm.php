@@ -6,8 +6,8 @@
 /*! \file ezpm.php
 */
 
-include_once( 'kernel/classes/ezpersistentobject.php' );
-include_once( 'kernel/classes/ezcontentobject.php' );
+//include_once( 'kernel/classes/ezpersistentobject.php' );
+//include_once( 'kernel/classes/ezcontentobject.php' );
 
 
 
@@ -206,6 +206,8 @@ class eZPm extends eZPersistentObject
     // returns messages statistics for current user - template fetch function
     static function messagesStats()
     {
+        //$pm = new eZPm();
+        
         $owner  = eZUser::currentUserID();
         $custom = array( array( 'operation' => 'count( id )',
                                 'name' => 'count' ) );
@@ -294,7 +296,7 @@ class eZPm extends eZPersistentObject
 
     static function sendNewMessage( $userID, $recipientID, $subject, $text )
     {
-        include_once( 'extension/ezpm/modules/pm/classes/ezpmblacklist.php' );
+        include_once( 'extension/ezpm/classes/ezpmblacklist.php' );
 
         $user = eZContentObject::fetch( $userID );
         $userName = $user->Name;

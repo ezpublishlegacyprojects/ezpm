@@ -1,8 +1,8 @@
 <?php
 
 include_once( 'kernel/common/template.php' );
-include_once( 'extension/ezpm/modules/pm/classes/ezpm.php' );
-include_once( 'extension/ezpm/modules/pm/classes/ezcontact.php' );
+//include_once( 'extension/ezpm/classes/ezpm.php' );
+include_once( 'extension/ezpm/classes/ezcontact.php' );
 
 $Module =& $Params['Module'];
 if ( !empty( $Params['UserParameters']['offset'] ) )

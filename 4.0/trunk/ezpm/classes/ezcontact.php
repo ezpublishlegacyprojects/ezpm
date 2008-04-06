@@ -6,8 +6,8 @@
 /*! \file ezcontact.php
 */
 
-include_once( 'kernel/classes/ezpersistentobject.php' );
-include_once( 'kernel/classes/ezcontentobject.php' );
+//include_once( 'kernel/classes/ezpersistentobject.php' );
+//include_once( 'kernel/classes/ezcontentobject.php' );
 
 
 
